@@ -1,0 +1,6 @@
+services:
+  dreblowphpnginx:
+    image: dreblowphpnginx
+    build:
+      context: .
+      dockerfile: ./Dockerfile
