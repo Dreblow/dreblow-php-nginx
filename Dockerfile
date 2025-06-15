@@ -23,10 +23,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # ----------------------------
 # Step 2: Configure Files
 # ----------------------------
-COPY ./default.conf /etc/nginx/sites-available/default
-COPY ./supervisord.conf /etc/supervisord.conf
-COPY ./index.php /var/www/html
 
+# Supervisor
+COPY support/docker/supervisord.conf /etc/supervisord.conf
+
+# Nginx
+COPY support/services/nginx/default.conf /etc/nginx/sites-available/default
+COPY support/services/nginx/index.php /var/www/html
 # Optional: ensure PHP and NGINX run as www-data
 RUN chown -R www-data:www-data /var/www/html
 
