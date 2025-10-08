@@ -19,7 +19,9 @@ This will:
 - Build your custom Docker image (if needed),
 - Mount your local website repo into `/var/www/html`,
 - Load your custom `default.conf` into NGINX,
-- Expose the site on [http://localhost:8080](http://localhost:8080).
+> If everything worked out of the box, head to the non HTTPS since ACME currently doesn't go online:
+> We may have to kick off the network, bash: `docker network create webproxy`
+- Expose the site on [http://www.dreblowdesigns.127.0.0.1.nip.io:8000](http://www.dreblowdesigns.127.0.0.1.nip.io:8000).
 
 ---
 
@@ -51,3 +53,20 @@ docker compose -f support/testing/docker-compose.test.yml up --build --force-rec
    ```bash
    docker compose -f support/testing/docker-compose.test.yml down
    ```
+
+---
+
+### 🔥 D. Push to the Repo
+1. 🧩 Push the repo to GitHub
+
+2. 🐳 Push the built Docker image
+* Once your repo is pushed and up-to-date, you can safely push the image to GitHub Container Registry (GHCR):
+
+```bash
+export GIT_TAG=$(git rev-parse --short HEAD)
+docker buildx build \
+  --platform linux/amd64,linux/arm64 \
+  -t ghcr.io/dreblow/dreblow-php-nginx:latest \
+  -t ghcr.io/dreblow/dreblow-php-nginx:$GIT_TAG \
+  --push .
+```
