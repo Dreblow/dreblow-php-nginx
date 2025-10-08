@@ -57,9 +57,32 @@ docker compose -f support/testing/docker-compose.test.yml up --build --force-rec
 ---
 
 ### 🔥 D. Push to the Repo
-1. 🧩 Push the repo to GitHub
+#### 1. 🧩 Push the repo to GitHub
 
-2. 🐳 Push the built Docker image
+#### 2. ⚙️ Setup docker for multi-platform builder
+
+Run this once on your Mac:
+```bash
+docker buildx create --name multiarch --driver docker-container --use
+```
+This does three things:
+* 	Creates a new Buildx builder (multiarch)
+*	Uses the Docker container driver instead of the legacy “docker” driver
+*	Sets it as your active builder
+
+Confirm it worked:
+```bash
+docker buildx inspect --bootstrap
+```
+
+You should see:
+```bash
+Driver: docker-container
+Platforms: linux/amd64, linux/arm64, linux/arm/v7, ...
+```
+Ready to push!
+
+#### 3. 🐳 Push the built Docker image
 * Once your repo is pushed and up-to-date, you can safely push the image to GitHub Container Registry (GHCR):
 
 ```bash
@@ -67,6 +90,5 @@ export GIT_TAG=$(git rev-parse --short HEAD)
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
   -t ghcr.io/dreblow/dreblow-php-nginx:latest \
-  -t ghcr.io/dreblow/dreblow-php-nginx:$GIT_TAG \
   --push .
 ```
