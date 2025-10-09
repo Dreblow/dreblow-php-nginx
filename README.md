@@ -70,6 +70,12 @@ This does three things:
 *	Uses the Docker container driver instead of the legacy “docker” driver
 *	Sets it as your active builder
 
+> Or if it's already running, use:
+> ```bash
+> docker buildx use multiarch
+> ```
+> and jump down to item 3 - Push the built Docker image
+
 Confirm it worked:
 ```bash
 docker buildx inspect --bootstrap
