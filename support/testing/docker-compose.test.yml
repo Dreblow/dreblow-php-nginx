@@ -46,6 +46,7 @@ services:
     volumes:
       - /Users/derekdreblow/Git/WebSites/WebSite_DreblowDesigns:/var/www/html:ro
       - ../../support/services/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./config/dreblowdesigns.com/extra-rules.conf:/etc/nginx/conf.d/extra-rules/extra-rules.conf:ro
     networks:
       - webproxy
     command: /bin/sh -c "rm -f /etc/nginx/sites-enabled/default && supervisord -n"

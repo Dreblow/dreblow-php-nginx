@@ -21,7 +21,7 @@ This will:
 - Load your custom `default.conf` into NGINX,
 > If everything worked out of the box, head to the non HTTPS since ACME currently doesn't go online:
 > We may have to kick off the network, bash: `docker network create webproxy`
-- Expose the site on [http://www.dreblowdesigns.127.0.0.1.nip.io:8000](http://www.dreblowdesigns.127.0.0.1.nip.io:8000).
+- Expose the site on [http://www.dreblowdesigns.127.0.0.1.nip.io:8000](http://www.dreblowdesigns.127.0.0.1.nip.io:8000)
 
 ---
 
